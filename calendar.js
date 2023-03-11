@@ -1,28 +1,57 @@
+// Текущий объект времени
+let currentTime = new Date();
+
+// Состояние компонента
+let yearState = currentTime.getFullYear();
+let monthState = currentTime.getMonth();
+let dateState = currentTime.getDate();
+let hourState = currentTime.getHours();
+let minState = currentTime.getMinutes();
+
+// Получение последнего дня прошдого месяца
+function getlastDateLastMonth(year, month) {
+    return new Date(year, month, 0).getDate();
+}
+
+// Получение последнего дня текущего месяца
+function getlastDateCurrentMonth(year, month) {
+    return new Date(year, month + 1, 0).getDate();
+}
+
+// Получение дня неделм последнего дня прошлого месяца
+function geLastDayLastMonth(year, month) {
+    return new Date(year, month, 0).getDay();
+}
+
+// Основные элементы для взаимодействия
 const input = document.querySelector('.input');
 const icon = document.querySelector('.icon');
 const calendar = document.querySelector('.calendar');
 const numbers = document.querySelectorAll('.number');
 
+// Внутренние элементы кастомного инпута
 const yearVal = document.querySelector('.year-val');
 const monthVal = document.querySelector('.month-val');
 const dateVal = document.querySelector('.date-val');
 const hourVal = document.querySelector('.hour-val');
 const minVal = document.querySelector('.min-val');
 
+// Поля показа времени и реализация прокрутки,  внутри календаря
 const hourField = document.querySelector('.hour-field');
 const minField = document.querySelector('.min-field');
 const sliderHour = document.querySelector('.hour-slider');
 const sliderMin = document.querySelector('.min-slider');
 
+// Элементы для вывода значений даты и времени, внутри календаря
 const year = document.querySelector('.year');
 const month = document.querySelector('.month');
+const dateTable = document.querySelector('.date-table');
 const up = document.querySelector('.up');
 const down = document.querySelector('.down');
 
+// Кнопки управления сбросом и выводом текущего времени
 const delet = document.querySelector('.delet');
 const now = document.querySelector('.now');
-
-const currentTime = new Date();
 
 // Форматировщик числа
 function format(num) {
@@ -35,7 +64,6 @@ function format(num) {
 
 // Обработчик скрола для показа выбранного времени
 function scrollTime(selector, num) {
-    console.log(num, num * 43 - 129);
     selector.scrollTo({
         top: num * 43 - 129,
         left: 0,
@@ -43,46 +71,103 @@ function scrollTime(selector, num) {
     });
 }
 
+// Отрисовка таблици календаря
+function render(year, month) {
+    dateTable.innerHTML = `<div class="cell cl">в</div>
+    <div class="cell cl">п</div>
+    <div class="cell cl">в</div>
+    <div class="cell cl">с</div>
+    <div class="cell cl">ч</div>
+    <div class="cell cl">п</div>
+    <div class="cell cl">с</div>`;
+    console.log(yearState, monthState, dateState, hourState, minState);
+
+    let arr = [];
+    // Получение последних дней прошлого месяца
+    for (let i = 0; i <= geLastDayLastMonth(year, month); i++) {
+        arr.unshift((getlastDateLastMonth(year, month) - i).toString());
+    }
+    // Получение дней текущего месяца
+    for (let i = 1; i <= getlastDateCurrentMonth(year, month); i++) {
+        arr.push(i);
+    }
+    // Получение первыхдней следующего месяца
+    let num = 42 - arr.length;
+    for (let i = 1; i <= num; i++) {
+        arr.push(i.toString());
+    }
+    console.log(arr);
+    // Отрисовка ячеек календаря
+    for (let i of arr) {
+        let cell = document.createElement('div');
+        cell.classList.add('cl');
+        cell.innerHTML = i;
+        if (typeof i === 'number') {
+            cell.classList.add('cell');
+        } else {
+            cell.classList.add('noclick');
+        }
+        if (currentTime.getDate() === i) {
+            cell.classList.add('current');
+        }
+        dateTable.append(cell);
+    }
+    writeValues();
+    writeCalendar();
+}
+
 // Установка первоначальных значений
 window.onload = () => {
+    // В цикле вешаются обработчики события фокус и блюр, для изменения ширины бордера в инпуте
+    numbers.forEach((el) => {
+        el.onfocus = () => {
+            input.classList.add('border');
+        };
+        el.onblur = () => {
+            input.classList.remove('border');
+        };
+    });
     for (let i = 0; i < 24; i++) {
         let item = document.createElement('div');
         item.classList.add('item-hour', 'cl');
-        if (currentTime.getHours() === i) {
+        if (hourState === i) {
             item.classList.add('current');
         }
         item.innerHTML = format(i);
         item.onclick = () => {
-            hourVal.innerHTML = item.innerHTML;
+            hourState = i;
             document.querySelectorAll('.item-hour').forEach((el) => {
                 el.classList.remove('current');
             });
             item.classList.add('current');
             scrollTime(hourField, +item.innerHTML);
+            writeValues();
         };
         sliderHour.append(item);
     }
     for (let i = 0; i < 60; i++) {
         let item = document.createElement('div');
         item.classList.add('item-min', 'cl');
-        if (currentTime.getMinutes() === i) {
+        if (minState === i) {
             item.classList.add('current');
         }
         item.innerHTML = format(i);
         item.onclick = () => {
-            minVal.innerHTML = item.innerHTML;
+            minState = i;
             document.querySelectorAll('.item-min').forEach((el) => {
                 el.classList.remove('current');
             });
             item.classList.add('current');
             scrollTime(minField, +item.innerHTML);
+            writeValues();
         };
         sliderMin.append(item);
     }
-    year.value = currentTime.getFullYear();
-    month.value = currentTime.getMonth();
-    scrollTime(hourField, currentTime.getHours());
-    scrollTime(minField, currentTime.getMinutes());
+    year.value = yearState;
+    month.value = monthState;
+
+    render(yearState, monthState);
+    defaultValues();
 };
 
 // Скрывает и показывает календарь
@@ -97,80 +182,83 @@ document.body.onclick = (e) => {
     }
 };
 
-// В цикле вешаются обработчики события фокус и блюр, для изменения ширины бордера в инпуте
-numbers.forEach((el) => {
-    el.onfocus = () => {
-        input.classList.add('border');
-    };
-    el.onblur = () => {
-        input.classList.remove('border');
-    };
-});
-
 //  Обработчик выбора года
 year.oninput = (e) => {
     const val = e.target.value;
     if (val.length < 5) {
+        yearState = +val;
         yearVal.innerHTML = val;
     } else {
         e.target.value = 2023;
+        yearState = 2023;
         yearVal.innerHTML = 2023;
     }
+    render(yearState, monthState);
 };
 
 // Обработчики выбора месяца
 month.onchange = (e) => {
     monthVal.innerHTML = format(+e.target.value + 1);
+    monthState = +e.target.value;
+    render(yearState, monthState);
 };
 
 up.onclick = () => {
     if (month.value === '11') {
         month.value = '0';
+        monthState = 0;
     } else {
-        month.value = +month.value + 1;
+        ++month.value + 1;
+        ++monthState;
     }
-    monthVal.innerHTML = format(+month.value + 1);
+    render(yearState, monthState);
 };
 
 down.onclick = () => {
     if (month.value === '0') {
         month.value = '11';
+        monthState = 11;
     } else {
-        month.value = +month.value - 1;
+        --month.value + 1;
+        --monthState;
     }
-    monthVal.innerHTML = format(+month.value + 1);
+    render(yearState, monthState);
 };
 
+delet.onclick = defaultValues;
+
 // Обработчикик сброса значений к первоначальныйм
-delet.onclick = () => {
+function defaultValues() {
     yearVal.innerHTML = 'гггг';
     monthVal.innerHTML = 'мм';
     dateVal.innerHTML = 'дд';
     hourVal.innerHTML = '--';
     minVal.innerHTML = '--';
-};
+}
+
+// Обработчик установки значений для кастомного инпута
+function writeValues() {
+    yearVal.innerHTML = yearState;
+    monthVal.innerHTML = format(monthState + 1);
+    dateVal.innerHTML = format(dateState);
+    hourVal.innerHTML = format(hourState);
+    minVal.innerHTML = format(minState);
+}
+// Обработчик изменения в календаре
+function writeCalendar() {
+    month.value = monthState.toString();
+    year.value = yearState;
+    scrollTime(hourField, hourState);
+    scrollTime(minField, minState);
+}
 
 // Обработчик выбора текущнго времени и даты
 now.onclick = () => {
-    yearVal.innerHTML = currentTime.getFullYear();
-    monthVal.innerHTML = format(currentTime.getMonth() + 1);
-    dateVal.innerHTML = format(currentTime.getDate());
-    hourVal.innerHTML = format(currentTime.getHours());
-    minVal.innerHTML = format(currentTime.getMinutes());
+    yearState = new Date().getFullYear();
+    monthState = new Date().getMonth();
+    dateState = new Date().getDate();
+    hourState = new Date().getHours();
+    minState = new Date().getMinutes();
 
-    document.querySelectorAll('.item-hour').forEach((el) => {
-        el.classList.remove('current');
-        if (format(currentTime.getHours()) === el.innerHTML) {
-            el.classList.add('current');
-            scrollTime(hourField, currentTime.getHours());
-        }
-    });
-
-    document.querySelectorAll('.item-min').forEach((el) => {
-        el.classList.remove('current');
-        if (format(currentTime.getMinutes()) === el.innerHTML) {
-            el.classList.add('current');
-            scrollTime(minField, currentTime.getMinutes());
-        }
-    });
+    render(yearState, monthState);
 };
