@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Calendar</title>
+        <link rel="stylesheet" href="calendar.css" />
+    </head>
+    <body>
+        <label
+            >Кастомный input date
+            <div class="input">
+                <div tabindex="0" class="number">дд</div>
+                <div pseudo="-webkit-datetime-edit-text">.</div>
+                <div tabindex="0" class="number">мм</div>
+                <div pseudo="-webkit-datetime-edit-text">.</div>
+                <div tabindex="0" class="number">гггг</div>
+                <div pseudo="-webkit-datetime-edit-text">,</div>
+                <div tabindex="0" class="number">--</div>
+                <div pseudo="-webkit-datetime-edit-text">:</div>
+                <div tabindex="0" class="number">--</div>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="icon"
+                    width="16"
+                    height="16"
+                    fill="blue"
+                    viewBox="0 0 16 16"
+                >
+                    <path
+                        class="icon"
+                        d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"
+                    />
+                    <path
+                        d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
+                    />
+                </svg>
+                <div class="calendar hide">
+                    <div class="year"></div>
+                    <div class="days"></div>
+                    <div class="hour"></div>
+                    <div class="min"></div>
+                    <div class="buttons"></div>
+                </div>
+            </div>
+        </label>
+        <label>Встоенный input date <input type="datetime-local" /></label>
+    </body>
+    <script src="calendar.js"></script>
+</html>

@@ -1,0 +1,135 @@
+/* Палитра и основные стили */
+:root {
+    line-height: 1.5;
+    font-weight: 400;
+
+    --bg: #232228;
+    --bg-light: #77257e;
+    --bg-dark: #1c1b21;
+
+    --panel: #232228;
+    --black: #3b434e;
+    --text-gray: #a0a0a1;
+    --gray: #48484c;
+    --gray-light: #b6b6b6;
+    --white: #fafafa;
+    --primary: #6c38cc;
+    --secondary: #cc46c9;
+    --primary-hover: #844fe6;
+    --yellow: #7e6b25;
+    --green: #257e39;
+    --blue: #001aff;
+    --cyan: #15698d;
+    --red: #ff0000;
+}
+/* Стилизация документа */
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    color: var(--gray);
+    background: var(--gray-light);
+}
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+label {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+/* Компонент кадендарь */
+.input {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--white);
+    height: 2rem;
+    min-width: 180px;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    font-weight: 600;
+    line-height: 2rem;
+    flex-shrink: 1;
+    line-height: 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid black;
+}
+.border {
+    border: 2px solid black;
+}
+.number {
+    font-weight: 600;
+    margin: 5px;
+}
+.number:focus {
+    background: #dee1ff;
+    border: none;
+    outline: none;
+    text-decoration: none;
+}
+.icon {
+    cursor: pointer;
+}
+.calendar {
+    position: absolute;
+    top: 2rem;
+    left: 0;
+
+    width: 350px;
+    height: 300px;
+    border: 1px solid var(--bg-dark);
+    padding: 4px;
+    border-radius: 4px;
+    background: var(--white);
+    box-shadow: 1px 1px 4px var(--bg-dark);
+
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    grid-template-rows: repeat(11, 1fr);
+    /* stylelint-disable-next-line declaration-block-no-redundant-longhand-properties */
+    grid-template-areas:
+        ' year year year year year year year hour hour min min'
+        ' year year year year year year year hour hour min min'
+        'days days days days days days days hour hour min min'
+        'days days days days days days days hour hour min min'
+        'days days days days days days days hour hour min min'
+        'days days days days days days days hour hour min min'
+        'days days days days days days days hour hour min min'
+        'days days days days days days days hour hour min min'
+        'days days days days days days days hour hour min min'
+        'buttons buttons buttons buttons buttons buttons buttons hour hour min min'
+        'buttons buttons buttons buttons buttons buttons buttons hour hour min min';
+}
+.year {
+    grid-area: year;
+    background: rgb(47, 55, 161);
+}
+.hour {
+    grid-area: hour;
+    background: rgb(182, 167, 167);
+}
+.min {
+    grid-area: min;
+    background: rgb(137, 221, 131);
+}
+.days {
+    grid-area: days;
+    background: rgb(155, 68, 135);
+}
+.buttons {
+    grid-area: buttons;
+    background: red;
+}
+.hide {
+    display: none;
+}
