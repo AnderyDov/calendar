@@ -5,17 +5,84 @@ const numbers = document.querySelectorAll('.number');
 
 const yearVal = document.querySelector('.year-val');
 const monthVal = document.querySelector('.month-val');
+const dateVal = document.querySelector('.date-val');
+const hourVal = document.querySelector('.hour-val');
+const minVal = document.querySelector('.min-val');
+
+const hourField = document.querySelector('.hour-field');
+const minField = document.querySelector('.min-field');
+const sliderHour = document.querySelector('.hour-slider');
+const sliderMin = document.querySelector('.min-slider');
 
 const year = document.querySelector('.year');
 const month = document.querySelector('.month');
 const up = document.querySelector('.up');
 const down = document.querySelector('.down');
 
-const now = new Date();
+const delet = document.querySelector('.delet');
+const now = document.querySelector('.now');
 
+const currentTime = new Date();
+
+// Форматировщик числа
+function format(num) {
+    if (num < 10) {
+        return (num = '0' + num);
+    } else {
+        return num.toString();
+    }
+}
+
+// Обработчик скрола для показа выбранного времени
+function scrollTime(selector, num) {
+    console.log(num, num * 43 - 129);
+    selector.scrollTo({
+        top: num * 43 - 129,
+        left: 0,
+        behavior: 'smooth',
+    });
+}
+
+// Установка первоначальных значений
 window.onload = () => {
-    year.value = now.getFullYear();
-    month.value = now.getMonth();
+    for (let i = 0; i < 24; i++) {
+        let item = document.createElement('div');
+        item.classList.add('item-hour', 'cl');
+        if (currentTime.getHours() === i) {
+            item.classList.add('current');
+        }
+        item.innerHTML = format(i);
+        item.onclick = () => {
+            hourVal.innerHTML = item.innerHTML;
+            document.querySelectorAll('.item-hour').forEach((el) => {
+                el.classList.remove('current');
+            });
+            item.classList.add('current');
+            scrollTime(hourField, +item.innerHTML);
+        };
+        sliderHour.append(item);
+    }
+    for (let i = 0; i < 60; i++) {
+        let item = document.createElement('div');
+        item.classList.add('item-min', 'cl');
+        if (currentTime.getMinutes() === i) {
+            item.classList.add('current');
+        }
+        item.innerHTML = format(i);
+        item.onclick = () => {
+            minVal.innerHTML = item.innerHTML;
+            document.querySelectorAll('.item-min').forEach((el) => {
+                el.classList.remove('current');
+            });
+            item.classList.add('current');
+            scrollTime(minField, +item.innerHTML);
+        };
+        sliderMin.append(item);
+    }
+    year.value = currentTime.getFullYear();
+    month.value = currentTime.getMonth();
+    scrollTime(hourField, currentTime.getHours());
+    scrollTime(minField, currentTime.getMinutes());
 };
 
 // Скрывает и показывает календарь
@@ -51,41 +118,59 @@ year.oninput = (e) => {
     }
 };
 
-// Обработчик выбора месяца
+// Обработчики выбора месяца
 month.onchange = (e) => {
-    let val = e.target.value;
-    console.log(val.length);
-    if (+val > 8) {
-        monthVal.innerHTML = +val + 1;
-    } else {
-        monthVal.innerHTML = '0' + (+val + 1);
-    }
+    monthVal.innerHTML = format(+e.target.value + 1);
 };
 
 up.onclick = () => {
-    console.log(month.value);
     if (month.value === '11') {
         month.value = '0';
     } else {
         month.value = +month.value + 1;
     }
-    if (+month.value > 8) {
-        monthVal.innerHTML = +month.value + 1;
-    } else {
-        monthVal.innerHTML = '0' + (+month.value + 1);
-    }
+    monthVal.innerHTML = format(+month.value + 1);
 };
 
 down.onclick = () => {
-    console.log(month.value);
     if (month.value === '0') {
         month.value = '11';
     } else {
         month.value = +month.value - 1;
     }
-    if (+month.value > 8) {
-        monthVal.innerHTML = +month.value + 1;
-    } else {
-        monthVal.innerHTML = '0' + (+month.value + 1);
-    }
+    monthVal.innerHTML = format(+month.value + 1);
+};
+
+// Обработчикик сброса значений к первоначальныйм
+delet.onclick = () => {
+    yearVal.innerHTML = 'гггг';
+    monthVal.innerHTML = 'мм';
+    dateVal.innerHTML = 'дд';
+    hourVal.innerHTML = '--';
+    minVal.innerHTML = '--';
+};
+
+// Обработчик выбора текущнго времени и даты
+now.onclick = () => {
+    yearVal.innerHTML = currentTime.getFullYear();
+    monthVal.innerHTML = format(currentTime.getMonth() + 1);
+    dateVal.innerHTML = format(currentTime.getDate());
+    hourVal.innerHTML = format(currentTime.getHours());
+    minVal.innerHTML = format(currentTime.getMinutes());
+
+    document.querySelectorAll('.item-hour').forEach((el) => {
+        el.classList.remove('current');
+        if (format(currentTime.getHours()) === el.innerHTML) {
+            el.classList.add('current');
+            scrollTime(hourField, currentTime.getHours());
+        }
+    });
+
+    document.querySelectorAll('.item-min').forEach((el) => {
+        el.classList.remove('current');
+        if (format(currentTime.getMinutes()) === el.innerHTML) {
+            el.classList.add('current');
+            scrollTime(minField, currentTime.getMinutes());
+        }
+    });
 };

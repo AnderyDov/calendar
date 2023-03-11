@@ -3,23 +3,13 @@
     line-height: 1.5;
     font-weight: 400;
 
-    --bg: #232228;
-    --bg-light: #77257e;
-    --bg-dark: #1c1b21;
-
-    --panel: #232228;
-    --black: #3b434e;
-    --text-gray: #a0a0a1;
-    --gray: #48484c;
-    --gray-light: #b6b6b6;
-    --white: #fafafa;
-    --primary: #6c38cc;
+    --dark: #1c1b21;
+    --bg: #ddd9d9;
+    --white: #e9e9e9;
+    --primary: #2245e3;
     --secondary: #cc46c9;
     --primary-hover: #844fe6;
-    --yellow: #7e6b25;
-    --green: #257e39;
     --blue: #001aff;
-    --cyan: #15698d;
     --red: #ff0000;
 }
 /* Стилизация документа */
@@ -30,7 +20,7 @@ body {
     margin: 0;
     padding: 0;
     color: var(--gray);
-    background: var(--gray-light);
+    background: var(--bg);
 }
 body {
     display: flex;
@@ -46,6 +36,7 @@ label {
 }
 
 /* Компонент кадендарь */
+/* Стилсзация кастомного инпута */
 .input {
     position: relative;
     display: flex;
@@ -79,18 +70,21 @@ label {
 .icon {
     cursor: pointer;
 }
+/* Стилизация календаря */
+/*  Основная сетка */
 .calendar {
     position: absolute;
-    top: 2rem;
+    top: 2.1rem;
     left: 0;
 
     width: 350px;
     height: 300px;
-    border: 1px solid var(--bg-dark);
     padding: 4px;
     border-radius: 4px;
     background: var(--white);
-    box-shadow: 1px 1px 4px var(--bg-dark);
+    box-shadow: 1px 1px 4px var(--dark);
+    transition: all 0.2s ease;
+    transform-origin: top;
 
     display: grid;
     grid-template-columns: repeat(11, 1fr);
@@ -110,7 +104,6 @@ label {
 }
 .year-field {
     grid-area: year-field;
-    background: rgb(47, 55, 161);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -118,32 +111,114 @@ label {
 }
 .hour-field {
     grid-area: hour-field;
-    background: rgb(182, 167, 167);
 }
 .min-field {
     grid-area: min-field;
-    background: rgb(137, 221, 131);
 }
 .date-field {
     grid-area: date-field;
-    background: rgb(155, 68, 135);
 }
 .buttons-field {
     grid-area: buttons-field;
-    background: red;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 .hide {
-    scale: 0;
+    scale: 1 0;
 }
-
-.year {
+/* Стилизация панельки года и месяцев */
+.year,
+.month {
     width: 60px;
     font-weight: 600;
     letter-spacing: 3px;
+    border: none;
+    outline: none;
+    background: var(--bg);
+    box-shadow: 1px 1px 2px var(--dark);
+}
+.month {
+    width: 100px;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+    cursor: pointer;
 }
 .arrows {
     font-size: 22px;
     display: flex;
-    color: var(--primary);
     cursor: pointer;
+    color: var(--primary);
+}
+.up:hover,
+.down:hover {
+    color: var(--primary-hover);
+}
+/* Стилизация панельки времени */
+.hour-field,
+.min-field {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.min-field::-webkit-scrollbar,
+.hour-field::-webkit-scrollbar {
+    width: 0 !important;
+}
+.hour-slider,
+.min-slider {
+    position: absolute;
+    transition: all ease 0.3s;
+}
+.item-hour,
+.item-min {
+    width: 50px;
+    min-height: 40px;
+    border-radius: 4px;
+    margin: 3px;
+    box-shadow: 1px 1px 2px var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.item-min:hover,
+.item-hour:hover {
+    background: var(--primary-hover);
+    color: var(--white);
+}
+.current {
+    background-color: var(--primary);
+    color: var(--white);
+}
+/* Стилизация панельки с кнопками */
+.buttons-field button {
+    display: inline-flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-color: transparent;
+    background: var(--primary);
+    color: var(--white);
+    text-align: center;
+    border-radius: 5px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 0.6rem;
+    line-height: 1em;
+    height: 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    box-shadow: 1px 1px 4px var(--dark);
+}
+.buttons-field button:hover {
+    background: var(--primary-hover);
+}
+.buttons-field button:active {
+    scale: 0.9;
+    box-shadow: none;
 }
