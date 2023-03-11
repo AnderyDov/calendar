@@ -41,7 +41,6 @@ body {
 label {
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     justify-content: center;
     margin-bottom: 10px;
 }
@@ -54,7 +53,7 @@ label {
     justify-content: center;
     background: var(--white);
     height: 2rem;
-    min-width: 180px;
+    width: 180px;
     padding-left: 0.75rem;
     padding-right: 0.75rem;
     font-weight: 600;
@@ -96,40 +95,55 @@ label {
     display: grid;
     grid-template-columns: repeat(11, 1fr);
     grid-template-rows: repeat(11, 1fr);
-    /* stylelint-disable-next-line declaration-block-no-redundant-longhand-properties */
     grid-template-areas:
-        ' year year year year year year year hour hour min min'
-        ' year year year year year year year hour hour min min'
-        'days days days days days days days hour hour min min'
-        'days days days days days days days hour hour min min'
-        'days days days days days days days hour hour min min'
-        'days days days days days days days hour hour min min'
-        'days days days days days days days hour hour min min'
-        'days days days days days days days hour hour min min'
-        'days days days days days days days hour hour min min'
-        'buttons buttons buttons buttons buttons buttons buttons hour hour min min'
-        'buttons buttons buttons buttons buttons buttons buttons hour hour min min';
+        ' year-field year-field year-field year-field year-field year-field year-field hour-field hour-field min-field min-field'
+        ' year-field year-field year-field year-field year-field year-field year-field hour-field hour-field min-field min-field'
+        'date-field date-field date-field date-field date-field date-field date-field hour-field hour-field min-field min-field'
+        'date-field date-field date-field date-field date-field date-field date-field hour-field hour-field min-field min-field'
+        'date-field date-field date-field date-field date-field date-field date-field hour-field hour-field min-field min-field'
+        'date-field date-field date-field date-field date-field date-field date-field hour-field hour-field min-field min-field'
+        'date-field date-field date-field date-field date-field date-field date-field hour-field hour-field min-field min-field'
+        'date-field date-field date-field date-field date-field date-field date-field hour-field hour-field min-field min-field'
+        'date-field date-field date-field date-field date-field date-field date-field hour-field hour-field min-field min-field'
+        'buttons-field buttons-field buttons-field buttons-field buttons-field buttons-field buttons-field hour-field hour-field min-field min-field'
+        'buttons-field buttons-field buttons-field buttons-field buttons-field buttons-field buttons-field hour-field hour-field min-field min-field';
 }
-.year {
-    grid-area: year;
+.year-field {
+    grid-area: year-field;
     background: rgb(47, 55, 161);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
 }
-.hour {
-    grid-area: hour;
+.hour-field {
+    grid-area: hour-field;
     background: rgb(182, 167, 167);
 }
-.min {
-    grid-area: min;
+.min-field {
+    grid-area: min-field;
     background: rgb(137, 221, 131);
 }
-.days {
-    grid-area: days;
+.date-field {
+    grid-area: date-field;
     background: rgb(155, 68, 135);
 }
-.buttons {
-    grid-area: buttons;
+.buttons-field {
+    grid-area: buttons-field;
     background: red;
 }
 .hide {
-    display: none;
+    scale: 0;
+}
+
+.year {
+    width: 60px;
+    font-weight: 600;
+    letter-spacing: 3px;
+}
+.arrows {
+    font-size: 22px;
+    display: flex;
+    color: var(--primary);
+    cursor: pointer;
 }

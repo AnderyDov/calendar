@@ -8,43 +8,64 @@
         <link rel="stylesheet" href="calendar.css" />
     </head>
     <body>
-        <label
-            >Кастомный input date
+        <div>
+            Кастомный «Календарь»
             <div class="input">
-                <div tabindex="0" class="number">дд</div>
-                <div pseudo="-webkit-datetime-edit-text">.</div>
-                <div tabindex="0" class="number">мм</div>
-                <div pseudo="-webkit-datetime-edit-text">.</div>
-                <div tabindex="0" class="number">гггг</div>
-                <div pseudo="-webkit-datetime-edit-text">,</div>
-                <div tabindex="0" class="number">--</div>
-                <div pseudo="-webkit-datetime-edit-text">:</div>
-                <div tabindex="0" class="number">--</div>
+                <div tabindex="0" class="number date-val">дд</div>
+                <div>.</div>
+                <div tabindex="0" class="number month-val">мм</div>
+                <div>.</div>
+                <div tabindex="0" class="number year-val">гггг</div>
+                <div>,</div>
+                <div tabindex="0" class="number hour-val">--</div>
+                <div>:</div>
+                <div tabindex="0" class="number min-val">--</div>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="icon"
+                    class="icon cl"
                     width="16"
                     height="16"
                     fill="blue"
                     viewBox="0 0 16 16"
                 >
                     <path
-                        class="icon"
+                        class="icon cl"
                         d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"
                     />
                     <path
+                        class="icon cl"
                         d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
                     />
                 </svg>
-                <div class="calendar hide">
-                    <div class="year"></div>
-                    <div class="days"></div>
-                    <div class="hour"></div>
-                    <div class="min"></div>
-                    <div class="buttons"></div>
+                <div class="calendar cl">
+                    <div class="year-field cl">
+                        <input type="number" class="year cl" />
+                        <select class="month cl">
+                            <option class="cl" value="0">январь</option>
+                            <option class="cl" value="1">февраль</option>
+                            <option class="cl" value="2">март</option>
+                            <option class="cl" value="3">апрель</option>
+                            <option class="cl" value="4">май</option>
+                            <option class="cl" value="5">июнь</option>
+                            <option class="cl" value="6">июль</option>
+                            <option class="cl" value="7">август</option>
+                            <option class="cl" value="8">сентябрь</option>
+                            <option class="cl" value="9">октябрь</option>
+                            <option class="cl" value="10">ноябрь</option>
+                            <option class="cl" value="11">декабрь</option>
+                        </select>
+                        <div class="arrows cl">
+                            <div class="up cl">&#11014;</div>
+                            <div class="down cl">&#11015;</div>
+                        </div>
+                    </div>
+                    <div class="date-field cl"></div>
+                    <div class="hour-field cl"></div>
+                    <div class="min-field cl"></div>
+                    <div class="buttons-field cl"></div>
                 </div>
             </div>
-        </label>
+        </div>
         <label>Встоенный input date <input type="datetime-local" /></label>
     </body>
     <script src="calendar.js"></script>
