@@ -189,6 +189,10 @@ label {
     cursor: not-allowed;
     color: var(--gray-light);
 }
+.choosed {
+    color: var(--red);
+    font-weight: 900;
+}
 /* Стилизация панельки времени */
 .hour-field,
 .min-field {

@@ -7,6 +7,7 @@ let monthState = currentTime.getMonth();
 let dateState = currentTime.getDate();
 let hourState = currentTime.getHours();
 let minState = currentTime.getMinutes();
+let choosedState = null;
 
 // ЭЛЕМЕНТЫ
 // Основные элементы для взаимодействия
@@ -85,6 +86,7 @@ function defaultValues() {
 // РЕНДЕРИНГ
 // Отрисовка таблици календаря
 function render(year, month) {
+    console.log(choosedState);
     dateTable.innerHTML = `<div class="cell cl">в</div>
     <div class="cell cl">п</div>
     <div class="cell cl">в</div>
@@ -92,7 +94,6 @@ function render(year, month) {
     <div class="cell cl">ч</div>
     <div class="cell cl">п</div>
     <div class="cell cl">с</div>`;
-    console.log(yearState, monthState, dateState, hourState, minState);
 
     let arr = [];
     // Получение последних дней прошлого месяца
@@ -108,7 +109,6 @@ function render(year, month) {
     for (let i = 1; i <= num; i++) {
         arr.push(i.toString());
     }
-    console.log(arr);
     // Отрисовка ячеек календаря
     for (let i of arr) {
         let cell = document.createElement('div');
@@ -116,6 +116,12 @@ function render(year, month) {
         cell.innerHTML = i;
         if (typeof i === 'number') {
             cell.classList.add('cell');
+            cell.onclick = () => {
+                chooseDate(i);
+            };
+            if (choosedState === i) {
+                cell.classList.add('choosed');
+            }
         } else {
             cell.classList.add('noclick');
         }
@@ -264,5 +270,25 @@ now.onclick = () => {
     hourState = new Date().getHours();
     minState = new Date().getMinutes();
 
+    document.querySelectorAll('.item-hour').forEach((el) => {
+        el.classList.remove('current');
+        if (el.innerHTML === format(hourState)) {
+            el.classList.add('current');
+        }
+    });
+    document.querySelectorAll('.item-ьшт').forEach((el) => {
+        el.classList.remove('current');
+        if (el.innerHTML === format(minState)) {
+            el.classList.add('current');
+        }
+    });
+
     render(yearState, monthState);
 };
+
+// Обработчик выбора даты
+function chooseDate(date) {
+    dateState = date;
+    choosedState = date;
+    render(yearState, monthState);
+}
