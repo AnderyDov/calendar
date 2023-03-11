@@ -293,3 +293,36 @@ function chooseDate(date) {
     choosedState = date;
     render(yearState, monthState);
 }
+
+// Обработчик копировать данные
+function unsecuredCopyToClipboard(text) {
+    const s = document.querySelector('.git');
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    s.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+        document.execCommand('copy');
+    } catch (err) {
+        console.error('Unable to copy to clipboard', err);
+    }
+    s?.removeChild(textArea);
+}
+
+document.querySelector('.copy').onclick = () => {
+    console.log('work');
+    if (window.isSecureContext && navigator.clipboard) {
+        navigator.clipboard
+            .writeText(
+                `${yearState}.${monthState}.${hourState}, ${hourState}:${minState}`,
+            )
+            .catch((err) => {
+                console.log('Something went wrong', err);
+            });
+    } else {
+        unsecuredCopyToClipboard(
+            `${yearState}.${monthState}.${hourState}, ${hourState}:${minState}`,
+        );
+    }
+};

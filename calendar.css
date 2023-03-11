@@ -274,3 +274,33 @@ label {
     fill: var(--red);
     scale: 1.3;
 }
+.copy {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    right: -40px;
+    top: 5px;
+    z-index: 2;
+}
+.copy:hover {
+    fill: var(--primary-hover);
+}
+.copy:active {
+    scale: 0.7;
+}
+
+.copy::after {
+    content: 'Копировать_данные';
+    padding: 2px;
+    position: absolute;
+    background: var(--primary);
+    color: var(--white);
+    top: -30px;
+    right: -120px;
+    scale: 0 1;
+    transition: all ease 0.3s;
+}
+.copy:hover::after {
+    scale: 1;
+}
