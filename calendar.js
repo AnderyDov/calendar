@@ -86,7 +86,6 @@ function defaultValues() {
 // РЕНДЕРИНГ
 // Отрисовка таблици календаря
 function render(year, month) {
-    console.log(choosedState);
     dateTable.innerHTML = `<div class="cell cl">в</div>
     <div class="cell cl">п</div>
     <div class="cell cl">в</div>
@@ -226,6 +225,7 @@ up.onclick = () => {
     if (month.value === '11') {
         month.value = '0';
         monthState = 0;
+        ++yearState;
     } else {
         ++month.value + 1;
         ++monthState;
@@ -237,6 +237,7 @@ down.onclick = () => {
     if (month.value === '0') {
         month.value = '11';
         monthState = 11;
+        --yearState;
     } else {
         --month.value + 1;
         --monthState;

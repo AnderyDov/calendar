@@ -261,3 +261,16 @@ label {
     scale: 0.9;
     box-shadow: none;
 }
+/* Дополнительное */
+.git {
+    position: absolute;
+    top: 100px;
+    right: 100px;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+}
+.git:hover {
+    fill: var(--red);
+    scale: 1.3;
+}
