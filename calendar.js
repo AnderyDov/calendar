@@ -1,28 +1,14 @@
-// Текущий объект времени
+// ТЕЛУЩИЙ ОБЪЕКТ ВРЕМЕНИ
 let currentTime = new Date();
 
-// Состояние компонента
+// НАЧАЛЬНОЕ СОСТОЯНИЕ КОПОНЕНТА
 let yearState = currentTime.getFullYear();
 let monthState = currentTime.getMonth();
 let dateState = currentTime.getDate();
 let hourState = currentTime.getHours();
 let minState = currentTime.getMinutes();
 
-// Получение последнего дня прошдого месяца
-function getlastDateLastMonth(year, month) {
-    return new Date(year, month, 0).getDate();
-}
-
-// Получение последнего дня текущего месяца
-function getlastDateCurrentMonth(year, month) {
-    return new Date(year, month + 1, 0).getDate();
-}
-
-// Получение дня неделм последнего дня прошлого месяца
-function geLastDayLastMonth(year, month) {
-    return new Date(year, month, 0).getDay();
-}
-
+// ЭЛЕМЕНТЫ
 // Основные элементы для взаимодействия
 const input = document.querySelector('.input');
 const icon = document.querySelector('.icon');
@@ -53,6 +39,22 @@ const down = document.querySelector('.down');
 const delet = document.querySelector('.delet');
 const now = document.querySelector('.now');
 
+// ОБРАБОТЧИКИ
+// Получение последнего дня прошдого месяца
+function getlastDateLastMonth(year, month) {
+    return new Date(year, month, 0).getDate();
+}
+
+// Получение последнего дня текущего месяца
+function getlastDateCurrentMonth(year, month) {
+    return new Date(year, month + 1, 0).getDate();
+}
+
+// Получение дня неделм последнего дня прошлого месяца
+function geLastDayLastMonth(year, month) {
+    return new Date(year, month, 0).getDay();
+}
+
 // Форматировщик числа
 function format(num) {
     if (num < 10) {
@@ -71,6 +73,16 @@ function scrollTime(selector, num) {
     });
 }
 
+// Обработчикик сброса значений к первоначальныйм
+function defaultValues() {
+    yearVal.innerHTML = 'гггг';
+    monthVal.innerHTML = 'мм';
+    dateVal.innerHTML = 'дд';
+    hourVal.innerHTML = '--';
+    minVal.innerHTML = '--';
+}
+
+// РЕНДЕРИНГ
 // Отрисовка таблици календаря
 function render(year, month) {
     dateTable.innerHTML = `<div class="cell cl">в</div>
@@ -116,7 +128,7 @@ function render(year, month) {
     writeCalendar();
 }
 
-// Установка первоначальных значений
+// УСТАНОВКА НАЧАЛЬНЫХ ЗНАЧЕНИЙ
 window.onload = () => {
     // В цикле вешаются обработчики события фокус и блюр, для изменения ширины бордера в инпуте
     numbers.forEach((el) => {
@@ -170,6 +182,7 @@ window.onload = () => {
     defaultValues();
 };
 
+// фУНКЦИОНАЛ
 // Скрывает и показывает календарь
 icon.onclick = () => {
     calendar.classList.toggle('hide');
@@ -224,17 +237,8 @@ down.onclick = () => {
     }
     render(yearState, monthState);
 };
-
+// Сброс значения на показанной панели
 delet.onclick = defaultValues;
-
-// Обработчикик сброса значений к первоначальныйм
-function defaultValues() {
-    yearVal.innerHTML = 'гггг';
-    monthVal.innerHTML = 'мм';
-    dateVal.innerHTML = 'дд';
-    hourVal.innerHTML = '--';
-    minVal.innerHTML = '--';
-}
 
 // Обработчик установки значений для кастомного инпута
 function writeValues() {
