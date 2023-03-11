@@ -9,6 +9,8 @@ let hourState = currentTime.getHours();
 let minState = currentTime.getMinutes();
 let choosedState = null;
 
+const nums = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+
 // ЭЛЕМЕНТЫ
 // Основные элементы для взаимодействия
 const input = document.querySelector('.input');
@@ -133,6 +135,40 @@ function render(year, month) {
     writeCalendar();
 }
 
+// Обработчик изменения текстового поля
+function edit(e, type) {
+    console.log(e);
+    if (!nums.includes(e.data)) {
+        e.target.innerHTML = '';
+        return false;
+    }
+    if (e.target.innerHTML.length > 4) {
+        e.target.innerHTML = 2023;
+
+        return false;
+    }
+    switch (type) {
+        case 'year':
+            yearState = e.target.innerHTML;
+            break;
+        case 'month':
+            monthState = e.target.innerHTML;
+            break;
+        case 'date':
+            dateState = e.target.innerHTML;
+            break;
+        case 'hour':
+            hourState = e.target.innerHTML;
+            break;
+        case 'min':
+            minState = e.target.innerHTML;
+            break;
+
+        default:
+            break;
+    }
+}
+
 // УСТАНОВКА НАЧАЛЬНЫХ ЗНАЧЕНИЙ
 window.onload = () => {
     // В цикле вешаются обработчики события фокус и блюр, для изменения ширины бордера в инпуте
@@ -182,6 +218,12 @@ window.onload = () => {
     }
     year.value = yearState;
     month.value = monthState;
+
+    yearVal.oninput = (e) => edit(e, 'year');
+    monthVal.oninput = (e) => edit(e, 'month');
+    dateVal.oninput = (e) => edit(e, 'date');
+    hourVal.oninput = (e) => edit(e, 'hour');
+    minVal.oninput = (e) => edit(e, 'min');
 
     render(yearState, monthState);
     defaultValues();

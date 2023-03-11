@@ -45,7 +45,7 @@ label {
     justify-content: center;
     background: var(--white);
     height: 2rem;
-    width: 180px;
+    min-width: 180px;
     padding-left: 0.75rem;
     padding-right: 0.75rem;
     font-weight: 600;
@@ -70,6 +70,8 @@ label {
 }
 .icon {
     cursor: pointer;
+    min-width: 16px;
+    min-height: 16px;
 }
 /* Стилизация календаря */
 /*  Основная сетка */
