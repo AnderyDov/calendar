@@ -319,7 +319,7 @@ now.onclick = () => {
             el.classList.add('current');
         }
     });
-    document.querySelectorAll('.item-ьшт').forEach((el) => {
+    document.querySelectorAll('.item-min').forEach((el) => {
         el.classList.remove('current');
         if (el.innerHTML === format(minState)) {
             el.classList.add('current');
